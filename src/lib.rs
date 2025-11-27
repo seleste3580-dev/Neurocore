@@ -1,13 +1,9 @@
-//! Neuroflow: real‑time neural computation pipelines for embedded & edge devices
-
-pub mod layers;
 pub mod activation;
-pub mod pipeline;
-pub mod errors;
+pub mod layers;
+pub mod network;
 pub mod tensor;
 
-pub use layers::*;
-pub use activation::*;
-pub use pipeline::*;
-pub use errors::*;
-pub use tensor::*;
+pub use layers::{Layer, DenseLayer};
+pub use network::NeuralNetwork;
+pub use activation::Activation;
+pub use tensor::Tensor;

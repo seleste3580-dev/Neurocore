@@ -1,20 +1,16 @@
-use serde::{Serialize, Deserialize};
-
-#[derive(Clone, Serialize, Deserialize)]
+#[derive(Clone, Copy, Debug)]
 pub enum Activation {
-    Relu,
+    None,
+    ReLU,
     Sigmoid,
-    Tanh,
-    Linear,
 }
 
 impl Activation {
-    pub fn apply(&self, x: f32) -> f32 {
+    pub fn apply(&self, x: f64) -> f64 {
         match self {
-            Activation::Relu => x.max(0.0),
+            Activation::None => x,
+            Activation::ReLU => x.max(0.0),
             Activation::Sigmoid => 1.0 / (1.0 + (-x).exp()),
-            Activation::Tanh => x.tanh(),
-            Activation::Linear => x,
         }
     }
 }

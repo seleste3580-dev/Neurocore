@@ -1,16 +1,14 @@
-use serde::{Serialize, Deserialize};
-
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug)]
 pub struct Tensor {
-    pub data: Vec<f32>,
+    pub data: Vec<f64>,
 }
 
 impl Tensor {
-    pub fn new(data: Vec<f32>) -> Self {
-        Self { data }
+    pub fn new(data: Vec<f64>) -> Self {
+        Tensor { data }
     }
 
-    pub fn len(&self) -> usize {
-        self.data.len()
+    pub fn from_vec(data: Vec<f64>) -> Self {
+        Tensor { data }
     }
 }

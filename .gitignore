@@ -1,0 +1,9 @@
+# Rust build
+/target
+
+# Backup files
+**/*.rs.bk
+
+# OS junk
+.DS_Store
+*.swp

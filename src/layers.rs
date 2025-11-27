@@ -1,70 +1,56 @@
-use crate::{Tensor, Activation, NeuroError};
-use serde::{Serialize, Deserialize};
+use crate::tensor::Tensor;
+use crate::activation::Activation;
 
-/// Layer trait
 pub trait Layer {
-    fn forward(&self, input: &Tensor) -> Result<Tensor, NeuroError>;
+    fn forward(&self, input: &Tensor) -> Tensor;
     fn input_size(&self) -> usize;
     fn output_size(&self) -> usize;
 }
 
-/// Dense Layer
-#[derive(Clone, Serialize, Deserialize)]
-pub struct Dense {
-    pub weights: Vec<Vec<f32>>,
-    pub bias: Vec<f32>,
-    pub activation: Activation,
+pub struct DenseLayer {
+    input_size: usize,
+    output_size: usize,
+    activation: Activation,
+    weights: Vec<Vec<f64>>,
+    biases: Vec<f64>,
 }
 
-impl Dense {
-    pub fn new(input: usize, output: usize, activation: Activation) -> Self {
+impl DenseLayer {
+    pub fn new(input_size: usize, output_size: usize, activation: Activation) -> Self {
         use rand::Rng;
         let mut rng = rand::thread_rng();
-
-        let weights = (0..output)
-            .map(|_| (0..input).map(|_| rng.gen_range(-0.5..0.5)).collect())
+        let weights = (0..output_size)
+            .map(|_| (0..input_size).map(|_| rng.gen_range(-1.0..1.0)).collect())
             .collect();
-
-        let bias = vec![0.0; output];
-
-        Self {
-            weights,
-            bias,
+        let biases = (0..output_size).map(|_| rng.gen_range(-1.0..1.0)).collect();
+        DenseLayer {
+            input_size,
+            output_size,
             activation,
+            weights,
+            biases,
         }
     }
 }
 
-impl Layer for Dense {
-    fn forward(&self, input: &Tensor) -> Result<Tensor, NeuroError> {
-        if input.len() != self.input_size() {
-            return Err(NeuroError::ShapeMismatch {
-                expected: self.input_size(),
-                got: input.len(),
-            });
-        }
-
-        let mut output = vec![0.0; self.output_size()];
-
-        for (i, row) in self.weights.iter().enumerate() {
-            let mut sum = 0.0;
-
-            for (w, x) in row.iter().zip(input.data.iter()) {
-                sum += w * x;
+impl Layer for DenseLayer {
+    fn forward(&self, input: &Tensor) -> Tensor {
+        let mut output = Vec::new();
+        for i in 0..self.output_size {
+            let mut sum = self.biases[i];
+            for j in 0..self.input_size {
+                sum += self.weights[i][j] * input.data[j];
             }
-
-            sum += self.bias[i];
-            output[i] = self.activation.apply(sum);
+            output.push(self.activation.apply(sum));
         }
-
-        Ok(Tensor::new(output))
+        Tensor::new(output)
     }
 
     fn input_size(&self) -> usize {
-        self.weights[0].len()
+        self.input_size
     }
 
     fn output_size(&self) -> usize {
-        self.bias.len()
+        self.output_size
     }
 }

@@ -1,14 +1,15 @@
 [package]
 name = "neurocore"
-version = "0.1.2"
+version = "0.1.3"
 edition = "2021"
 authors = ["Seleste Waithaka <waithaka.njoroge3580@gmail.com>"]
 license = "MIT"
-description = "Neurocore: neural-state engine in Rust, created by Seleste Waithaka. A powerful, lightweight library for building neural networks, supporting multiple activation functions, forward propagation, and serialization with serde. Perfect for learning, experimenting, or embedding small neural networks in Rust projects."
+description = "Neurocore: neural-state engine in Rust, created by Seleste Waithaka. A powerful, lightweight library for building neural networks, supporting multiple activation functions, forward propagation, and serialization with serde."
 readme = "README.md"
 repository = "https://github.com/seleste3580-dev/neurocore"
 homepage = "https://github.com/seleste3580-dev/neurocore"
 documentation = "https://docs.rs/neurocore"
+exclude = ["target/*"]   # <-- THIS MUST BE HERE
 
 [dependencies]
 rand = "0.8"
