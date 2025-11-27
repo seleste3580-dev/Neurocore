@@ -42,7 +42,7 @@ neurocore = "0.1.0"
 
 
 ## 🧠 Example Usage
-
+//check the available errors 
 ```rust
 use neurocore::{Dense, Activation};
 
