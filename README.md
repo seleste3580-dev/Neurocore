@@ -1,5 +1,5 @@
 # 📘 Neurocore
-### *A lightweight neural-state engine for Rust — created by **Seleste Waithaka**.*
+### * Neurocore: Full-featured neural network engine in Rust, including dense layers, activation functions, forward/backward propagation, training, and serialization. — created by **Seleste Waithaka**.*
 
 
 
