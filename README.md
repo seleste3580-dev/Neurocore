@@ -1,5 +1,5 @@
 # 📘 Neurocore
-### *A lightweight neural-state engine for Rust — created by **Seleste Scorpion (God Ace)**.*
+### *A lightweight neural-state engine for Rust — created by **Seleste Waithaka**.*
 
 
 
