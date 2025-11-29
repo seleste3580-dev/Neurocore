@@ -36,7 +36,7 @@ Or manually include it in `Cargo.toml`:
 
 ```toml
 [dependencies]
-neurocore = "0.1.0"
+neurocore = "0.1.4"
 ```
 
 
